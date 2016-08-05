@@ -7,9 +7,9 @@ function getPCMArray(location){
   audio.crossOrigin = "anonymous";
   audio.src = location;
   audio.load();
-  console.log('meta data loaded');
   return new Promise(function(resolve, reject){
     audio.onloadedmetadata = function(){
+      console.log('meta data loaded');
       let request = new XMLHttpRequest();
       request.open('GET', location, true);
       request.responseType = 'arraybuffer';
@@ -50,24 +50,27 @@ let meshPCM = function(mesh1, mesh2, direction, meshWithRatio){
   let adRatio = parseFloat((1 + ((meshWithRatio - 0.5) * 2)).toFixed(2));
   console.log(songRatio, adRatio);
   return mesh1[direction].map((dataPoint, i) => {
-    if(typeof mesh2[direction][i] !== 'undefined' && i > 44100){
-      let newDataPoint = ((songRatio * dataPoint) + (adRatio * mesh2[direction][i])) / 2;
+    let newi = i-44100
+    if(typeof mesh2[direction][newi] !== 'undefined' && i > 44100){
+      let newDataPoint = ((songRatio * dataPoint) + (adRatio * mesh2[direction][newi])) / 2;
       return newDataPoint
     }
+    else if(i < 44100){
+      return dataPoint/2;
+    }
     else{
-      if(i < 1000) console.log('in the else with ', i);
       return dataPoint
     }
 
   })
 }
 
-function runMesh(location1, location2, callback){
+function runMesh(location1, location2, howAddy, callback){
   Promise.all([getPCMArray(location1), getPCMArray(location2)])
   .spread((song, ad) => {
     console.log(song, ad);
-    let meshedLeft = meshPCM(song, ad, 'left', 0.5)
-    let meshedRight = meshPCM(song, ad, 'right', 0.5)
+    let meshedLeft = meshPCM(song, ad, 'left', howAddy)
+    let meshedRight = meshPCM(song, ad, 'right', howAddy)
     console.log(meshedRight, meshedLeft);
     let audioCxt = new AudioContext()
     let audioBuffer = audioCxt.createBuffer(2, meshedRight.length, audioCxt.sampleRate)

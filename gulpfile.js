@@ -5,7 +5,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
 var notifier = require('node-notifier');
-var server = require('gulp-server-livereload');
+var livereload = require('gulp-livereload');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
@@ -33,7 +33,7 @@ var notify = function(error) {
 };
 
 var bundler = watchify(browserify({
-  entries: ['./src/app.jsx'],
+  entries: ['./src/router.jsx'],
   transform: [reactify],
   extensions: ['.jsx'],
   debug: true,
@@ -48,6 +48,7 @@ function bundle() {
     .on('error', notify)
     .pipe(source('public/javascripts/main.js'))
     .pipe(gulp.dest('./'))
+    .pipe(livereload())
 }
 bundler.on('update', bundle);
 
@@ -55,32 +56,24 @@ gulp.task('build', function() {
   bundle()
 });
 
-gulp.task('serve', function(done) {
-  gulp.src('')
-    .pipe(server({
-      livereload: {
-        enable: true,
-        filter: function(filePath, cb) {
-          if(/main.js/.test(filePath)) {
-            cb(true)
-          } else if(/style.css/.test(filePath)){
-            cb(true)
-          }
-        }
-      },
-      open: true
-    }));
+gulp.task('reload', function () {
+    livereload.reload();
 });
 
 gulp.task('sass', function () {
-  gulp.src('./sass/**/*.scss')
+  gulp.src('./public/sass/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(concat('style.css'))
-    .pipe(gulp.dest('./'));
+    .pipe(concat('./public/stylesheets/style.css'))
+    .pipe(gulp.dest('./'))
+    .pipe(livereload());
 });
 
-gulp.task('default', ['build', 'serve', 'sass', 'watch']);
+gulp.task('default', ['build', 'sass', 'watch', 'reload', 'listen']);
+
+gulp.task('listen', function(){
+  livereload.listen()
+})
 
 gulp.task('watch', function () {
-  gulp.watch('./sass/**/*.scss', ['sass']);
+  gulp.watch('./public/sass/*.scss', ['sass']);
 });

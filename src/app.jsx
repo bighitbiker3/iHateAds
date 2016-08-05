@@ -1,27 +1,24 @@
 var React = require('react');
-var ReactDOM = require('react-dom')
-var Dropzone = require('./DropzoneUpload')
-var Sound = require('./SoundPlayer');
+var Link = require('react-router').Link;
 
-var Hello = React.createClass({
-  getInitialState: function(){
-    return {
-      url: 'http://localhost:8000/upload/song.mp3',
-      position: 0,
-      volume: 100,
-    }
-  },
-  render: function() {
-    return <div>
-      <h1>My MERN Template :)</h1>
-      <Dropzone />
-      <h2>Test Element</h2>
-      <audio id="lol" controls/>
-      <audio className="audio" controls="controls"></audio>
-    </div>
+module.exports = React.createClass({
+  render: function(){
 
+    return  (
+      <div>
+    <nav>
+      <div className="nav-wrapper">
+        <Link className="brand-logo" to="/">Mesh$</Link>
+        <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <li><Link to="/profile">Profile</Link></li>
+          <li><a href="badges.html">Stats</a></li>
+          <li><Link to="/ads">Ads</Link></li>
+        </ul>
+      </div>
+    </nav>
+    {this.props.children.props.route ? <h1 className="titleText">{this.props.children.props.route.title}</h1> : null}
+    {this.props.children}
+  </div>
+    )
   }
-});
-
-var element = React.createElement(Hello, {});
-ReactDOM.render(element, document.querySelector('.app'));
+})

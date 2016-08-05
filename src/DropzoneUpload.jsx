@@ -27,20 +27,27 @@ var DropzoneComponent = React.createClass({
     }
     xhr.onreadystatechange = function() {
       if(xhr.readyState == 4 && xhr.status == 200) {
-        console.log(xhr.responseText); // this sends the path back to us
         self.setState({playerSource: xhr.responseText, showPlayer: true});
       }
     }
   },
-
+  getUploadedSongName: function(str){
+    let newStr = '';
+    return str.slice(7, str.length - 4)
+  },
   render: function () {
+    var playerStyle = {
+      marginBottom: 100,
+
+    }
+
     return (
         <div>
           <span>
-            <Dropzone onDrop={this.onDrop}>
-              <div>Try dropping some files here, or click to select files to upload.</div>
+            <Dropzone className="dropzone col s12" onDrop={this.onDrop}>
+              <a className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></a>
             </Dropzone>
-            {this.state.showPlayer ? <SoundPlayer source={this.state.playerSource} /> : null}
+            {this.state.showPlayer ?  <div id="uploadedTune"><h5>{this.getUploadedSongName(this.state.playerSource)}</h5><SoundPlayer source={this.state.playerSource} /></div> : null}
           </span>
           {this.state.showPlayer ? <AdList songUploaded = {this.state.playerSource} /> : null}
         </div>

@@ -1,0 +1,64 @@
+
+* {
+   margin: 0px;
+   padding: 0px;
+}
+html {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.dropzone{
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 100px;
+}
+
+#uploadedTune {
+  text-align: left;
+
+  margin: 0 auto;
+  width: 400px;
+  box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.25);
+  padding: 5px;
+}
+
+.meshSlider{
+  width: 400px;
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.25);
+}
+.meshSlider .handle {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  background-color: #26a69a;
+
+}
+
+.brand-logo{
+  margin-left: 20px;
+}
+nav{
+  background-color: transparent;
+  ul{
+    li{
+      a{
+        color: #26a69a;
+      }
+    }
+
+  }
+  .brand-logo{
+    color: #26a69a
+  }
+}
+
+h1{
+  font-size: 38px;
+}
+.titleText{
+  text-align: center;
+}
