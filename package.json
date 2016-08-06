@@ -25,15 +25,18 @@
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
     "multiparty": "^4.1.2",
+    "node-soundcloud": "0.0.5",
     "react": "*",
     "react-dropzone": "^3.5.3",
     "react-materialize": "^0.14.8",
+    "react-notification-system": "^0.2.7",
     "react-rangeslider": "^1.0.3",
     "react-router": "^2.6.1",
     "react-slider": "^0.7.0",
     "react-sound": "^0.5.2",
     "reactfire": "^1.0.0",
     "request": "^2.74.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "soundcloud-node": "0.0.10"
   }
 }

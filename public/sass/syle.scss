@@ -14,7 +14,7 @@ html {
   margin-top: 100px;
 }
 
-#uploadedTune {
+.uploadedTune {
   text-align: left;
 
   margin: 0 auto;
@@ -45,6 +45,7 @@ nav{
   background-color: transparent;
   ul{
     li{
+      color: #26a69a;
       a{
         color: #26a69a;
       }
@@ -60,5 +61,8 @@ h1{
   font-size: 38px;
 }
 .titleText{
+  text-align: center;
+}
+.profileColTitle{
   text-align: center;
 }

@@ -4,17 +4,26 @@ var Sound = require('react-sound');
 var runMesh = require('../utility/mesh')
 var bufferToWav = require('audiobuffer-to-wav');
 var Slider = require('react-slider');
+var FirebaseApp = require('./FirebaseApp');
+var FirebaseDBRef;
+
 
 var AudioComponent = React.createClass({
   getInitialState: function(){
     return {
       meshRendering: false,
       meshFinished: false,
+      meshFileLocation: '',
+      meshSongTitle: '',
       songUrlObject: {},
       playing: false,
       sliderVal: 0,
       howAddy: 'Not Very Addy'
     }
+  },
+  componentWillMount: function(){
+    this.setState({user: FirebaseApp.auth().currentUser})
+    FirebaseDBRef = FirebaseApp.database();
   },
   componentDidMount: function(){
     this.refs.audioTag.addEventListener('timeupdate', this.handleTimeUpdate)
@@ -33,16 +42,62 @@ var AudioComponent = React.createClass({
       this.makeWav(buffer)
     })
   },
+  getSongName: function(str){
+    return str.slice(7, str.length - 4)
+  },
   makeWav: function(buffer){
-
-    var wav = bufferToWav(buffer);
-    var blob = new window.Blob([ new DataView(wav) ], {
+    let wav = bufferToWav(buffer);
+    let blob = new window.Blob([ new DataView(wav) ], {
       type: 'audio/wav'
     })
-    var url = window.URL.createObjectURL(blob)
+    this.setState({meshSongTitle: this.getSongName(this.props.songUploaded) + ' meshed :)'})
+    let file = new File([blob], this.state.meshSongTitle);
+    this.uploadToServer(file)
+    let url = window.URL.createObjectURL(blob)
 
     this.setState({songUrlObject: url})
     this.setState({meshFinished: true, meshRendering: false})
+    this.props.songMeshSuccessNotification()
+  },
+  uploadToServer: function(file){
+    let self = this;
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/upload/meshed', true);
+    console.log(file);
+    let form = new FormData()
+    form.append('name', file.name)
+    form.append('song', file)
+    xhr.send(form)
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState == 4 && xhr.status == 200) {
+        self.setState({meshFileLocation: xhr.responseText})
+        self.addSongToProfile(self.state.meshFileLocation)
+        console.log(xhr.responseText);
+      }
+    }
+  },
+  addSongToProfile: function(location){
+    FirebaseDBRef.ref('users/' + FirebaseApp.auth().currentUser.uid + '/songs').push({
+      fileLocation: this.state.meshFileLocation,
+      fileTitle: this.state.meshSongTitle,
+      ad: this.props.adSource.slice(5, this.props.adSource.length -4),
+      meshed: true,
+      adProvider: this.props.adProvider,
+      adKey: this.props.adKey,
+      cpmBid: this.props.cpmBid
+    })
+    .then(doc => {
+      return FirebaseDBRef.ref('users/' + this.props.adProvider + '/ads/' + this.props.adKey + '/meshes').push({
+        artist: FirebaseApp.auth().currentUser.uid,
+        fileLocation: this.state.meshFileLocation,
+        fileTitle: this.state.meshSongTitle,
+        meshed: true,
+        songKey: doc.key
+
+      })
+    })
+    .then(doc => console.log(doc))
+    .catch(err => console.log(err))
   },
   playPauseAudio: function(){
     this.state.playing ? this.refs.audioTag.pause() : this.refs.audioTag.play();
@@ -66,7 +121,6 @@ var AudioComponent = React.createClass({
       {this.props.adSource ? <div><p>{this.state.howAddy}</p><Slider className="meshSlider" min={50} max={85} onChange={this.handleSlider} sliderVal={this.state.sliderVal} orientation='horizontal' /></div> : null}
       {this.props.adSource ? <button className="btn waves-effect waves-light" onClick={this.letsMesh}>Mesh</button> : null}
       {this.state.meshRendering ? <img src="/images/loader.gif"/> : null}
-      {this.state.meshFinished ? <audio className="audioPlayer" src={this.state.songUrlObject} controls /> : null}
       </div>
     </div>
   }
