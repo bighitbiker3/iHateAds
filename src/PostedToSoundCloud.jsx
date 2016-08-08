@@ -47,7 +47,8 @@ module.exports = React.createClass({
   render: function(){
     PostedToSoundCloudStyle ={
       fontSize: 12,
-      marginTop: -75,
+      marginTop: -100,
+      marginRight: 70
     }
     return (
       <div>

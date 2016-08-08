@@ -44,10 +44,10 @@ module.exports = React.createClass({
       if(songObj.soundcloud){
         var frameSrc = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' + songObj.soundcloud.id +  '&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=true&amp;visual=true"';
         children.push(
-          <div className="uploadedTune">
+          <div className="uploadedTuneLarge">
             <iframe width="100%" height="150" scrolling="no" src={frameSrc}></iframe>
-          <p>Plays: {songObj.soundcloud.playback_count}</p>
-          <p>Money Owed: ${Math.floor((songObj.cpmBid / 100) * (songObj.soundcloud.playback_count / 1000))}</p>
+          <p className="inline soundcloudPlays">Plays: {songObj.soundcloud.playback_count}</p>
+          <p className="inline soundcloudMoneyOwed">Money Owed: <strong>${Math.floor((songObj.cpmBid / 100) * (songObj.soundcloud.playback_count / 1000))}</strong></p>
         </div>
         )
       }

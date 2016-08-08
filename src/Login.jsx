@@ -32,11 +32,23 @@ module.exports = React.createClass({
   },
   render: function(){
     return (
-      <div>
-        <input value={this.state.emailText} onChange={this.handleEmailInput} name="email" type="email"/>
-        <input value={this.state.passwordText} onChange={this.handlePasswordInput} name="password" type="password"/>
-        <button onClick={this.loginUser} className="btn">Login</button>
+      <div className="row">
+        <div className="col s6 offset-s3">
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="email" type="email" value={this.state.emailText} onChange={this.handleEmailInput} className="validate"/>
+                <label htmlFor="email">Email Address</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="password" type="password" value={this.state.passwordText} onChange={this.handlePasswordInput} className="validate"/>
+                <label htmlFor="password">Password</label>
+              </div>
+            </div>
+          <button onClick={this.loginUser} className="btn">Login</button>
         </div>
+      </div>
     )
   }
 })

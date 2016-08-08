@@ -11,10 +11,12 @@ var DropzoneComponent = React.createClass({
     return {
       showPlayer: false,
       playerSource: '',
-      user: {}
+      user: {},
+      files: []
     }
   },
   onDrop: function (files) {
+    this.setState({files: files})
     var self = this;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/upload', true);
@@ -44,10 +46,13 @@ var DropzoneComponent = React.createClass({
           <span>
             <Dropzone className="dropzone col s12" onDrop={this.onDrop}>
               <a className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></a>
+                <div className="fileUploadNameDiv">
+                  {this.state.files.length > 0 ? <p className="fileUploadName">{this.state.files[0].name}</p> : null}
+                </div>
             </Dropzone>
-            {this.state.showPlayer ?  <div className="uploadedTune"><h5>{this.getUploadedSongName(this.state.playerSource)}</h5><SoundPlayer source={this.state.playerSource} /></div> : null}
+            {this.state.showPlayer ? <div> <div className="uploadedTune artistTuneUpload col offset-s4"><h5>{this.getUploadedSongName(this.state.playerSource)}</h5><SoundPlayer source={this.state.playerSource} /></div></div> : null}
           </span>
-          {this.state.showPlayer ? <AdList songMeshSuccessNotification={this.props.songMeshSuccessNotification} songUploaded = {this.state.playerSource} /> : null}
+          {this.state.showPlayer ? <div><h4 style={{textAlign: 'center', marginTop: 50}}>Ad Offers</h4><div className="AdListContainer"><AdList songMeshSuccessNotification={this.props.songMeshSuccessNotification} songUploaded = {this.state.playerSource} /></div></div> : null}
         </div>
     );
   }

@@ -62,20 +62,36 @@ module.exports = React.createClass({
   render: function(){
     return (
       <div className="row">
-        <label>Browser Select</label>
-        <select onChange={this.handleDropdown} className="browser-default">
-          <option value="" disabled selected>I Am...</option>
-          <option value="1">Artist</option>
-          <option value="2">Ad Provider</option>
-        </select>
-        <input  name="artist" type="checkbox"/>
-        <input value={this.state.nameText} onChange={this.handleNameInput} name="name" type="text"/>
-        <input value={this.state.emailText} onChange={this.handleEmailInput} name="email" type="email"/>
-        <input value={this.state.passwordText} onChange={this.handlePasswordInput} name="password" type="password"/>
+        <div className="col s6 offset-s3">
+          <label>Browser Select</label>
+          <select onChange={this.handleDropdown} className="browser-default">
+            <option value="" disabled selected>I Am...</option>
+            <option value="1">Artist</option>
+            <option value="2">Ad Provider</option>
+          </select>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="full_name" type="text" value={this.state.nameText} onChange={this.handleNameInput} className="validate"/>
+                <label htmlFor="name">Name</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="email" type="email" value={this.state.emailText} onChange={this.handleEmailInput} className="validate"/>
+                <label htmlFor="email">Email Address</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s12">
+                <input id="password" type="password" value={this.state.passwordText} onChange={this.handlePasswordInput} className="validate"/>
+                <label htmlFor="password">Password</label>
+              </div>
+            </div>
 
-        <br></br>
-        <button onClick={this.registerUser} className="btn">Register</button>
+          <br></br>
+          <button onClick={this.registerUser} className="btn">Register</button>
         </div>
+      </div>
     )
   }
 })

@@ -11,7 +11,8 @@ var DropzoneComponent = React.createClass({
   getInitialState: function(){
     return {
       cpmBid: '',
-      files: []
+      files: [],
+      fileName: ''
     }
   },
   onDrop: function (files) {
@@ -61,8 +62,12 @@ var DropzoneComponent = React.createClass({
     .catch(err => console.log(err))
   },
   handleCPMInput: function(e){
+    if(e.target.value < 0){
+      this.props.negativeNumberNotification();
+      return;
+    }
     let inCents = e.target.value * 100;
-    this.setState({cpmBid: inCents})
+    this.setState({cpmBid: inCents});
   },
   setFileToState: function(files){
     this.setState({files: files});
@@ -70,13 +75,18 @@ var DropzoneComponent = React.createClass({
   render: function () {
     return (
         <div className="row">
-          <span>
+          <div>
             <Dropzone onDrop={this.setFileToState}className="dropzone col s12">
               <a className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></a>
+              <div className="fileUploadNameDiv">
+                {this.state.files.length > 0 ? <p className="fileUploadName">{this.state.files[0].name}</p> : null}
+              </div>
             </Dropzone>
-            <input type="number" style={{textAlign: 'center'}} className="col s4 offset-s4" onChange={this.handleCPMInput} placeholder="CPM Bid?" />
-            <button onClick={this.onDrop} className="btn">Upload</button>
-          </span>
+          </div>
+          <div>
+            <input type="number" style={{textAlign: 'center', marginTop: 0}} className="col s4 offset-s4" onChange={this.handleCPMInput} placeholder="CPM Bid? (Dollars)" />
+            <button style={{marginTop: 8, marginLeft: 20}} onClick={this.onDrop} className="btn">Upload</button>
+          </div>
         </div>
     );
   }

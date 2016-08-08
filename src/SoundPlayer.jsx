@@ -50,7 +50,7 @@ var AudioComponent = React.createClass({
     let blob = new window.Blob([ new DataView(wav) ], {
       type: 'audio/wav'
     })
-    this.setState({meshSongTitle: this.getSongName(this.props.songUploaded) + ' meshed :)'})
+    this.setState({meshSongTitle: this.getSongName(this.props.songUploaded) + ' meshed 😊'})
     let file = new File([blob], this.state.meshSongTitle);
     this.uploadToServer(file)
     let url = window.URL.createObjectURL(blob)
@@ -115,11 +115,11 @@ var AudioComponent = React.createClass({
     <div className="col s4">
       <audio ref="audioTag" className="audioPlayer" src={this.props.source}/>
       <div className=" audioControls">
-        <progress ref="seekbar" value="0" max="1" style={{display: 'block', width:300}}></progress>
         <i onClick={this.playPauseAudio} className={this.state.playing ? "fa fa-pause-circle fa-3x" : "fa fa-play-circle fa-3x"} aria-hidden="true"></i>
+        <progress ref="seekbar" value="0" max="1" style={{display: 'block', width:300}}></progress>
       </div>
-      {this.props.adSource ? <div><p>{this.state.howAddy}</p><Slider className="meshSlider" min={50} max={85} onChange={this.handleSlider} sliderVal={this.state.sliderVal} orientation='horizontal' /></div> : null}
-      {this.props.adSource ? <button className="btn waves-effect waves-light" onClick={this.letsMesh}>Mesh</button> : null}
+      {this.props.adSource && this.props.songUploaded ? <div><p>{this.state.howAddy}</p><Slider className="meshSlider" min={50} max={85} onChange={this.handleSlider} sliderVal={this.state.sliderVal} orientation='horizontal' /></div> : null}
+      {this.props.adSource && this.props.songUploaded ? <button className="btn waves-effect waves-light" onClick={this.letsMesh}>Mesh</button> : null}
       {this.state.meshRendering ? <img src="/images/loader.gif"/> : null}
       </div>
     </div>

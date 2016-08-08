@@ -18,7 +18,7 @@ var browserHistory = require('react-router').browserHistory;
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute title="Upload" component={Home}/>
+      <IndexRoute  component={Home}/>
       <Route path="/profile" title="Your Profile" component={Profile}/>
       <Route path="/ads" title="Available Ads" component={AdList}/>
       <Route path="/register" title="Register Below Pls" component={Register}/>

@@ -44,7 +44,14 @@ var App = React.createClass({
       level: 'success'
     });
   },
+  negativeNumberNotification: function(){
+    this._notificationSystem.addNotification({
+      message: "?????????????????????????",
+      level: 'error'
+    });
+  },
   componentWillMount: function(){
+
     FirebaseApp.auth().onAuthStateChanged(function(user){
       if(user){
         this.setState({user: user})
@@ -62,11 +69,16 @@ var App = React.createClass({
     }
   },
   render: function() {
+    console.log(this.state);
     return <app>
     <NotificationSystem ref="notificationSystem" />
     <div className="container">
+      <div style={{textAlign: 'center'}}>
+        {this.state.artist ? <h3>Upload and Mesh Your Tune</h3> : null}
+        {this.state.adProvider ? <h3>List Your Ad</h3> : null}
+      </div>
       {this.state.artist ? <DropzoneArtist songUploadSuccessNotification={this.songUploadSuccessNotification} songMeshSuccessNotification={this.songMeshSuccessNotification} user={this.state.user} /> : null}
-      {this.state.adProvider ? <DropzoneAd noCPMBidNotification={this.noCPMBidNotification} adSuccessNotification={this.adSuccessNotification} user={this.state.user}/> : null}
+      {this.state.adProvider ? <DropzoneAd negativeNumberNotification={this.negativeNumberNotification} noCPMBidNotification={this.noCPMBidNotification} adSuccessNotification={this.adSuccessNotification} user={this.state.user}/> : null}
     </div>
   </app>
 
