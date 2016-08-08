@@ -50,7 +50,7 @@ var AudioComponent = React.createClass({
     let blob = new window.Blob([ new DataView(wav) ], {
       type: 'audio/wav'
     })
-    this.setState({meshSongTitle: this.getSongName(this.props.songUploaded) + ' meshed 😊'})
+    this.setState({meshSongTitle: this.getSongName(this.props.songUploaded) + ' 😊'})
     let file = new File([blob], this.state.meshSongTitle);
     this.uploadToServer(file)
     let url = window.URL.createObjectURL(blob)

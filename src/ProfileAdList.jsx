@@ -20,6 +20,7 @@ module.exports = React.createClass({
       let arr = [];
       let counter = 0
       snapshot.forEach(child=> {
+        console.log(child.val());
         arr.push({key: child.key, fileLocation: child.val().fileLocation, fileTitle: self.getAdName(child.val().fileLocation), cpmBid: child.val().cpmBid})
         if(child.child('meshes')){
           arr[counter].meshes = []
