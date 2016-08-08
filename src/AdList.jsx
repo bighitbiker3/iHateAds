@@ -24,7 +24,7 @@ var AdList = React.createClass({
     .then(snapshot => {
       snapshot.forEach((child, i) =>{
         this.state.ads.push(
-          <div>
+          <div style={{marginLeft: 10}} className={this.props.location && this.props.location.pathname === '/ads' ? "uploadedTune" : null}>
           <h5>{this.getAdName(child.val().fileLocation)}</h5>
           <SoundPlayer
             songMeshSuccessNotification={this.props.songMeshSuccessNotification}

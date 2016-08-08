@@ -32,7 +32,7 @@ module.exports = React.createClass({
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           {this.state.user ? <li>hi {this.state.user.displayName}</li> : null}
           {this.state.user ? <li><Link to="/profile">Profile</Link></li> : null}
-          <li><a href="badges.html">Stats</a></li>
+          <li><Link to="/stats">Stats</Link></li>
           <li><Link to="/ads">Ads</Link></li>
           {this.state.user ? null : <li><Link to="/register">Register</Link></li>}
           {this.state.user ? <li><Link to="/logout">Logout</Link></li> : <li><Link to="/login">Login</Link></li>}

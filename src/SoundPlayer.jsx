@@ -17,7 +17,7 @@ var AudioComponent = React.createClass({
       meshSongTitle: '',
       songUrlObject: {},
       playing: false,
-      sliderVal: 0,
+      sliderVal: 50,
       howAddy: 'Not Very Addy'
     }
   },
@@ -118,7 +118,7 @@ var AudioComponent = React.createClass({
         <i onClick={this.playPauseAudio} className={this.state.playing ? "fa fa-pause-circle fa-3x" : "fa fa-play-circle fa-3x"} aria-hidden="true"></i>
         <progress ref="seekbar" value="0" max="1" style={{display: 'block', width:300}}></progress>
       </div>
-      {this.props.adSource && this.props.songUploaded ? <div><p>{this.state.howAddy}</p><Slider className="meshSlider" min={50} max={85} onChange={this.handleSlider} sliderVal={this.state.sliderVal} orientation='horizontal' /></div> : null}
+      {this.props.adSource && this.props.songUploaded ? <div style={{marginTop: 10}}><p className="inline">{this.state.howAddy}</p><p style={{float: 'right', marginRight: -150}} className="inline"> ({this.state.sliderVal}% Ad/{100 - this.state.sliderVal}% Tune)</p><Slider className="meshSlider" min={50} max={85} onChange={this.handleSlider} sliderVal={this.state.sliderVal} orientation='horizontal' /></div> : null}
       {this.props.adSource && this.props.songUploaded ? <button className="btn waves-effect waves-light" onClick={this.letsMesh}>Mesh</button> : null}
       {this.state.meshRendering ? <img src="/images/loader.gif"/> : null}
       </div>

@@ -7,6 +7,7 @@ var Profile = require('./Profile')
 var Logout = require('./Logout')
 var Login = require('./Login')
 var AdList = require('./AdList')
+var Stats = require('./Stats')
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var Link = require('react-router').Link;
@@ -21,6 +22,7 @@ ReactDOM.render((
       <IndexRoute component={Home}/>
       <Route path="/profile" title="Your Profile" component={Profile}/>
       <Route path="/ads" title="Available Ads" component={AdList}/>
+      <Route path="/stats" title="Statistics" component={Stats}/>
       <Route path="/register" title="Register Below Pls" component={Register}/>
       <Route path="/logout" title="Thanks for logging out" component={Logout} />
       <Route path="/login" title="Login" component={Login} />

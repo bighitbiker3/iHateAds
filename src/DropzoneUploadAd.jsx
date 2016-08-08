@@ -58,6 +58,7 @@ var DropzoneComponent = React.createClass({
     })
     .then(() => {
       this.props.adSuccessNotification()
+      this.setState({cpmBid: '', files: []})
     })
     .catch(err => console.log(err))
   },

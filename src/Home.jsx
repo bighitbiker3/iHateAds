@@ -51,7 +51,6 @@ var App = React.createClass({
     });
   },
   componentWillMount: function(){
-
     FirebaseApp.auth().onAuthStateChanged(function(user){
       if(user){
         this.setState({user: user})
@@ -76,6 +75,7 @@ var App = React.createClass({
       <div style={{textAlign: 'center'}}>
         {this.state.artist ? <h3>Upload and Mesh Your Tune</h3> : null}
         {this.state.adProvider ? <h3>List Your Ad</h3> : null}
+
       </div>
       {this.state.artist ? <DropzoneArtist songUploadSuccessNotification={this.songUploadSuccessNotification} songMeshSuccessNotification={this.songMeshSuccessNotification} user={this.state.user} /> : null}
       {this.state.adProvider ? <DropzoneAd negativeNumberNotification={this.negativeNumberNotification} noCPMBidNotification={this.noCPMBidNotification} adSuccessNotification={this.adSuccessNotification} user={this.state.user}/> : null}
