@@ -2,11 +2,14 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var multiparty = require('multiparty');
+var path = require('path')
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index.html');
 });
+
 router.post('/upload', function(req, res, next) {
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
@@ -15,7 +18,7 @@ router.post('/upload', function(req, res, next) {
         throw err
         res.send('There was an error')
       } else {
-        fs.writeFile('/Users/El_Is_Based/fullstackSenior/iHateAds/public/upload/' + files.song[0].originalFilename, data, function(err){
+        fs.writeFile('/public/upload/' + files.song[0].originalFilename, data, function(err){
           if(err) throw err
           res.send('upload/' + files.song[0].originalFilename)
         })
@@ -23,6 +26,7 @@ router.post('/upload', function(req, res, next) {
     })
   })
 });
+
 router.post('/upload/ads', function(req, res, next) {
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
