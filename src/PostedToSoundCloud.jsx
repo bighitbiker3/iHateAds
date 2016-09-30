@@ -30,6 +30,7 @@ module.exports = React.createClass({
     var scData;
     $.get(resolve + this.state.soundcloudLink + '&client_id=' + clientId)
     .then(data => {
+      console.log(data);
       var songRef = FirebaseDBRef.ref('users/' + FirebaseApp.auth().currentUser.uid + '/songs/' + this.props.FBKey + '/soundcloud')
       songRef.set(data)
     })
