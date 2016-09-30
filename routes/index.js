@@ -18,7 +18,7 @@ router.post('/upload', function(req, res, next) {
         throw err
         res.send('There was an error')
       } else {
-        fs.writeFile('/public/upload/' + files.song[0].originalFilename, data, function(err){
+        fs.writeFile('/upload/' + files.song[0].originalFilename, data, function(err){
           if(err) throw err
           res.send('upload/' + files.song[0].originalFilename)
         })
