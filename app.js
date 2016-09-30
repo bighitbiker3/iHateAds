@@ -19,7 +19,7 @@ app.use(function(err, req, res, next) {
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
-app.set('port', process.env.PORT || 8000);
+app.set('port', (process.env.PORT || 8000));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -72,5 +72,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 
 module.exports = app;
