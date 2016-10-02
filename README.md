@@ -1,5 +1,5 @@
 # Meshr
-This project was built during Fullstack's Stackathon - a 3 day hackathon.  It's a demonstration is how music streaming services such as Spotify or Soundcloud could differentiate how they serve ads.  
+This project was built during Fullstack's Stackathon - a 3 day hackathon.  It's a demonstration in how music streaming services such as Spotify or Soundcloud could differentiate how they serve ads.  
 
 Check out the deployed project demonstration at (https://meshr.herokuapp.com). Login as `bladee@gmail.com` password `testing123` to see a song that has been meshed with a Coca Cola Ad.
 
