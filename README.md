@@ -14,6 +14,6 @@ Check out the deployed project demonstration at (https://meshr.herokuapp.com). L
 6. Head over to your profile to see the meshed song! 
 
 
-## Watch the presentation (https://www.fullstackacademy.com/hackathon-presentations/me-h)[here]
+### Watch the presentation [here](https://www.fullstackacademy.com/hackathon-presentations/me-h)
 
 
