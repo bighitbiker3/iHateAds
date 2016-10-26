@@ -3,8 +3,6 @@ This project was built during Fullstack's Stackathon - a 3 day hackathon.  It's 
 
 The song meshing is done by combining PCM streams from the two audio sources.  Enjoy!
 
-Check out the deployed project demonstration at (https://meshr.herokuapp.com). Login as `bladee@gmail.com` password `testing123` to see a couple songs that have been meshed.
-
 ## Mesh your own songs! 
 1. Head over to (https://meshr.herokuapp.com)
 2. Register *as an artist* (Ad Provider currently isn't set up for Firebase Storage). Password must be at least like 6 characters. 
